@@ -1,0 +1,1108 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desa Konoha - Pelayanan Digital</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(135deg, #075985, #0f172a);
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+}
+
+.logo {
+    width: 90px;
+    height: 90px;
+    border: 3px solid white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 12px;
+    font-size: 48px;
+    background: white;
+}
+
+header h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+header p {
+    margin: 5px;
+}
+
+/* IDENTITAS PEMBUAT */
+.pembuat-website {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 12px 25px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 8px;
+    color: white;
+}
+
+.pembuat-website span {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.pembuat-website strong {
+    display: block;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+/* NAVIGASI */
+nav {
+    background: #0f172a;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px;
+}
+
+nav button {
+    border: none;
+    padding: 11px 17px;
+    background: #0284c7;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background: #0369a1;
+}
+
+/* KONTEN */
+.container {
+    max-width: 1100px;
+    margin: 25px auto;
+    padding: 0 15px;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.07);
+    margin-bottom: 22px;
+}
+
+h2 {
+    color: #075985;
+    margin-bottom: 18px;
+}
+
+h3 {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin: 12px 0 6px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.btn {
+    padding: 11px 17px;
+    border: none;
+    border-radius: 6px;
+    background: #0284c7;
+    color: white;
+    cursor: pointer;
+    margin: 8px 5px 0 0;
+}
+
+.btn:hover {
+    background: #0369a1;
+}
+
+.btn-green {
+    background: #15803d;
+}
+
+.btn-red {
+    background: #dc2626;
+}
+
+.hidden {
+    display: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+th, td {
+    border: 1px solid #e2e8f0;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #e0f2fe;
+}
+
+.info {
+    background: #e0f2fe;
+    padding: 14px;
+    border-left: 4px solid #0284c7;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+/* FOOTER */
+footer {
+    background: #0f172a;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+}
+
+@media(max-width:650px) {
+    header h1 {
+        font-size: 23px;
+    }
+
+    .pembuat-website strong {
+        font-size: 15px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER WEBSITE -->
+<header>
+    <div class="logo">🏴‍☠️</div>
+
+    <h1>DESA KONOHA</h1>
+
+    <p>Kabupaten Marineford | Provinsi East Blue</p>
+    <p>Portal Pelayanan Administrasi Desa Digital</p>
+
+    <!-- NAMA PEMBUAT WEBSITE -->
+    <div class="pembuat-website">
+        <span>WEBSITE DIKEMBANGKAN OLEH</span>
+        <strong>M HENDRIAWAN HADI</strong>
+    </div>
+</header>
+
+<!-- MENU NAVIGASI -->
+<nav>
+    <button onclick="tampilkanHalaman('beranda')">Beranda</button>
+    <button onclick="tampilkanHalaman('pengajuan')">Pengajuan Surat</button>
+    <button onclick="tampilkanHalaman('cek')">Cek Pengajuan</button>
+    <button onclick="loginAdmin()">Login Admin</button>
+</nav>
+
+<div class="container">
+
+<!-- HALAMAN BERANDA -->
+<section id="beranda" class="halaman">
+    <div class="card">
+        <h2>Selamat Datang di Desa Konoha</h2>
+
+        <p>
+            Website ini merupakan contoh penerapan transformasi digital
+            dalam pelayanan pemerintahan desa.
+        </p>
+
+        <br>
+
+        <div class="info">
+            Masyarakat dapat mengajukan surat administrasi secara online
+            tanpa harus datang langsung ke kantor desa.
+        </div>
+
+        <h3>Layanan yang Tersedia:</h3>
+
+        <ul style="margin:15px 25px; line-height:2">
+            <li>Surat Keterangan Domisili</li>
+            <li>Surat Keterangan Usaha</li>
+            <li>Surat Pengantar SKCK</li>
+            <li>Surat Keterangan Tidak Mampu</li>
+            <li>Surat Keterangan Umum</li>
+        </ul>
+
+        <button class="btn"
+        onclick="tampilkanHalaman('pengajuan')">
+            Ajukan Surat Sekarang
+        </button>
+    </div>
+
+    <div class="card">
+        <h2>Alur Pelayanan Digital</h2>
+
+        <ol style="margin:15px 25px; line-height:2">
+            <li>Masyarakat mengisi formulir pengajuan.</li>
+            <li>Sistem membuat nomor registrasi otomatis.</li>
+            <li>Masyarakat mendapatkan PDF bukti pengajuan.</li>
+            <li>Admin memeriksa permohonan.</li>
+            <li>Admin mengubah status pengajuan.</li>
+            <li>Jika disetujui, masyarakat dapat mengunduh PDF surat.</li>
+        </ol>
+    </div>
+</section>
+
+<!-- HALAMAN PENGAJUAN -->
+<section id="pengajuan" class="halaman hidden">
+    <div class="card">
+
+        <h2>Formulir Pengajuan Surat</h2>
+
+        <div class="info">
+            Silakan isi data dengan benar. Setelah pengajuan dikirim,
+            sistem akan membuat nomor registrasi dan PDF bukti pengajuan.
+        </div>
+
+        <form id="formPengajuan">
+
+            <label>Nama Lengkap</label>
+            <input type="text" id="nama" required>
+
+            <label>NIK (16 digit)</label>
+            <input type="text" id="nik"
+            maxlength="16" inputmode="numeric"
+            pattern="[0-9]{16}" required>
+
+            <label>Tempat Lahir</label>
+            <input type="text" id="tempatLahir" required>
+
+            <label>Tanggal Lahir</label>
+            <input type="date" id="tanggalLahir" required>
+
+            <label>Jenis Kelamin</label>
+            <select id="jenisKelamin" required>
+                <option value="">-- Pilih --</option>
+                <option>Laki-laki</option>
+                <option>Perempuan</option>
+            </select>
+
+            <label>Alamat</label>
+            <textarea id="alamat" required></textarea>
+
+            <label>Nomor HP</label>
+            <input type="tel" id="telepon" required>
+
+            <label>Jenis Surat</label>
+            <select id="jenisSurat" required>
+                <option value="">-- Pilih Jenis Surat --</option>
+                <option>Surat Keterangan Domisili</option>
+                <option>Surat Keterangan Usaha</option>
+                <option>Surat Pengantar SKCK</option>
+                <option>Surat Keterangan Tidak Mampu</option>
+                <option>Surat Keterangan Umum</option>
+            </select>
+
+            <label>Keperluan</label>
+            <textarea id="keperluan" required></textarea>
+
+            <button type="submit" class="btn">
+                Kirim Pengajuan
+            </button>
+
+        </form>
+    </div>
+</section>
+
+<!-- HALAMAN CEK STATUS -->
+<section id="cek" class="halaman hidden">
+    <div class="card">
+
+        <h2>Cek Status Pengajuan</h2>
+
+        <label>Masukkan Nomor Registrasi</label>
+
+        <input type="text" id="nomorCek"
+        placeholder="Contoh: REG/001/2026">
+
+        <button class="btn" onclick="cekStatus()">
+            Cari Pengajuan
+        </button>
+
+        <div id="hasilCek" style="margin-top:20px"></div>
+
+    </div>
+</section>
+
+<!-- HALAMAN ADMIN -->
+<section id="admin" class="halaman hidden">
+    <div class="card">
+
+        <h2>Dashboard Admin Desa Konoha</h2>
+
+        <div class="info">
+            Admin dapat melihat pengajuan dan mengubah status
+            permohonan masyarakat.
+        </div>
+
+        <input type="text" id="cariAdmin"
+        placeholder="Cari nama atau nomor registrasi..."
+        oninput="tampilkanDataAdmin()">
+
+        <div id="tabelAdmin"></div>
+
+        <button class="btn btn-red" onclick="logoutAdmin()">
+            Logout Admin
+        </button>
+
+    </div>
+</section>
+
+</div>
+
+<!-- FOOTER WEBSITE -->
+<footer>
+    <h3>PEMERINTAH DESA KONOHA</h3>
+    <p>Kabupaten Marineford - Provinsi East Blue</p>
+    <p>Kepala Desa: MONKY D. LUFFY</p>
+
+    <br>
+
+    <p>Website dikembangkan oleh: M Hendriawan Hadi</p>
+    <p>© 2026 Desa Konoha - Digital Government</p>
+
+    <small>
+        Website simulasi pembelajaran transformasi digital pemerintahan.
+    </small>
+</footer>
+
+<script>
+
+// ======================================
+// PENGATURAN DATA
+// ======================================
+
+const KUNCI_DATA = "dataDesaDigitalKonoha";
+let adminAktif = false;
+
+// Mengambil data dari browser
+function ambilData() {
+    try {
+        return JSON.parse(localStorage.getItem(KUNCI_DATA)) || [];
+    } catch (error) {
+        return [];
+    }
+}
+
+// Menyimpan data
+function simpanData(data) {
+    localStorage.setItem(KUNCI_DATA, JSON.stringify(data));
+}
+
+// ======================================
+// NAVIGASI HALAMAN
+// ======================================
+
+function tampilkanHalaman(id) {
+
+    document.querySelectorAll(".halaman").forEach(halaman => {
+        halaman.classList.add("hidden");
+    });
+
+    if (id === "admin" && !adminAktif) {
+        alert("Silakan login sebagai admin terlebih dahulu.");
+        return;
+    }
+
+    document.getElementById(id).classList.remove("hidden");
+
+    if (id === "admin") {
+        tampilkanDataAdmin();
+    }
+}
+
+// ======================================
+// NOMOR REGISTRASI OTOMATIS
+// ======================================
+
+function nomorRegistrasi() {
+
+    const data = ambilData();
+    const tahun = new Date().getFullYear();
+
+    const nomor = String(data.length + 1).padStart(3, "0");
+
+    return `REG/${nomor}/${tahun}`;
+}
+
+// ======================================
+// FORMAT TANGGAL
+// ======================================
+
+function tanggalIndonesia(tanggal) {
+
+    return new Date(tanggal).toLocaleDateString("id-ID", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+}
+
+// ======================================
+// FORM PENGAJUAN
+// ======================================
+
+document.getElementById("formPengajuan")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    if (!window.jspdf) {
+        alert("Library PDF belum tersedia. Periksa koneksi internet.");
+        return;
+    }
+
+    const nik = document.getElementById("nik").value.trim();
+
+    if (!/^[0-9]{16}$/.test(nik)) {
+        alert("NIK harus terdiri dari 16 angka.");
+        return;
+    }
+
+    const data = ambilData();
+
+    const pengajuan = {
+
+        nomor: nomorRegistrasi(),
+
+        nama: document.getElementById("nama").value.trim(),
+
+        nik: nik,
+
+        tempatLahir:
+        document.getElementById("tempatLahir").value.trim(),
+
+        tanggalLahir:
+        document.getElementById("tanggalLahir").value,
+
+        jenisKelamin:
+        document.getElementById("jenisKelamin").value,
+
+        alamat:
+        document.getElementById("alamat").value.trim(),
+
+        telepon:
+        document.getElementById("telepon").value.trim(),
+
+        jenisSurat:
+        document.getElementById("jenisSurat").value,
+
+        keperluan:
+        document.getElementById("keperluan").value.trim(),
+
+        status: "Menunggu",
+
+        tanggal: new Date().toISOString()
+    };
+
+    data.push(pengajuan);
+
+    simpanData(data);
+
+    buatPDF(pengajuan, false);
+
+    alert(
+        "Pengajuan berhasil dikirim. PDF bukti pengajuan telah dibuat."
+    );
+
+    this.reset();
+
+    tampilkanHalaman("cek");
+
+    document.getElementById("nomorCek").value =
+    pengajuan.nomor;
+
+    cekStatus();
+
+});
+
+// ======================================
+// MEMBUAT PDF
+// ======================================
+
+function buatPDF(data, resmi) {
+
+    if (!window.jspdf) {
+        alert("Library PDF tidak tersedia.");
+        return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // KOP SURAT DESA KONOHA
+
+    doc.setFont("times", "bold");
+    doc.setFontSize(15);
+
+    doc.text("PEMERINTAH DESA", 105, 18, {
+        align: "center"
+    });
+
+    doc.setFontSize(19);
+
+    doc.text("DESA KONOHA", 105, 27, {
+        align: "center"
+    });
+
+    doc.setFontSize(11);
+
+    doc.text("KABUPATEN MARINEFORD", 105, 34, {
+        align: "center"
+    });
+
+    doc.text("PROVINSI EAST BLUE", 105, 40, {
+        align: "center"
+    });
+
+    doc.setFont("times", "normal");
+    doc.setFontSize(9);
+
+    doc.text(
+        "Alamat: Desa Konoha, Kabupaten Marineford",
+        105,
+        45,
+        { align: "center" }
+    );
+
+    doc.setLineWidth(0.8);
+    doc.line(20, 50, 190, 50);
+
+    // JUDUL PDF
+
+    doc.setFont("times", "bold");
+    doc.setFontSize(14);
+
+    const judul = resmi
+        ? "SURAT KETERANGAN"
+        : "BUKTI PENGAJUAN SURAT";
+
+    doc.text(judul, 105, 63, {
+        align: "center"
+    });
+
+    doc.setFont("times", "normal");
+    doc.setFontSize(11);
+
+    let y = 78;
+
+    if (resmi) {
+
+        doc.text("Nomor: " + data.nomor, 20, y);
+        y += 12;
+
+        const pembuka =
+        "Yang bertanda tangan di bawah ini, Kepala Desa Konoha, menerangkan bahwa:";
+
+        const barisPembuka =
+        doc.splitTextToSize(pembuka, 165);
+
+        doc.text(barisPembuka, 20, y);
+
+        y += barisPembuka.length * 6 + 5;
+
+    } else {
+
+        doc.text(
+            "Nomor Registrasi: " + data.nomor,
+            20,
+            y
+        );
+
+        y += 10;
+
+        doc.text(
+            "Tanggal Pengajuan: " + tanggalIndonesia(data.tanggal),
+            20,
+            y
+        );
+
+        y += 15;
+    }
+
+    // RINCIAN DATA PEMOHON
+
+    const rincian = [
+
+        ["Nama Lengkap", data.nama],
+
+        ["NIK", data.nik],
+
+        [
+            "Tempat, Tanggal Lahir",
+            data.tempatLahir + ", " +
+            tanggalIndonesia(data.tanggalLahir)
+        ],
+
+        ["Jenis Kelamin", data.jenisKelamin],
+
+        ["Alamat", data.alamat],
+
+        ["Nomor HP", data.telepon],
+
+        ["Jenis Surat", data.jenisSurat],
+
+        ["Keperluan", data.keperluan]
+
+    ];
+
+    rincian.forEach(item => {
+
+        doc.setFont("times", "bold");
+        doc.text(item[0], 20, y);
+
+        doc.setFont("times", "normal");
+        doc.text(":", 72, y);
+
+        const isi =
+        doc.splitTextToSize(String(item[1]), 110);
+
+        doc.text(isi, 77, y);
+
+        y += Math.max(8, isi.length * 6);
+
+    });
+
+    // BAGIAN SURAT RESMI
+
+    if (resmi) {
+
+        y += 8;
+
+        const penutup =
+        "Demikian surat keterangan ini dibuat untuk dipergunakan sebagaimana mestinya.";
+
+        const barisPenutup =
+        doc.splitTextToSize(penutup, 165);
+
+        doc.text(barisPenutup, 20, y);
+
+        y += barisPenutup.length * 6 + 12;
+
+        const posisi = Math.max(y, 205);
+
+        doc.text(
+            "Konoha, " + tanggalIndonesia(new Date()),
+            135,
+            posisi
+        );
+
+        doc.text(
+            "Kepala Desa Konoha",
+            135,
+            posisi + 8
+        );
+
+        doc.text(
+            "( MONKY D. LUFFY )",
+            135,
+            posisi + 35
+        );
+
+    } else {
+
+        y += 10;
+
+        doc.setFont("times", "bold");
+
+        doc.text(
+            "Status: " + data.status,
+            20,
+            y
+        );
+
+        y += 10;
+
+        doc.setFont("times", "italic");
+        doc.setFontSize(9);
+
+        doc.text(
+            "Catatan: Dokumen ini merupakan bukti registrasi pengajuan, bukan surat resmi yang telah diterbitkan pemerintah desa.",
+            20,
+            y,
+            { maxWidth: 165 }
+        );
+
+        doc.setFont("times", "normal");
+        doc.setFontSize(11);
+
+        doc.text(
+            "Petugas Penerima",
+            135,
+            y + 25
+        );
+    }
+
+    // SIMPAN PDF
+
+    doc.save(
+        (resmi ? "Surat-Resmi-" : "Bukti-Pengajuan-") +
+        data.nomor.replace(/\//g, "-") +
+        ".pdf"
+    );
+
+}
+
+// ======================================
+// CEK STATUS PENGAJUAN
+// ======================================
+
+function cekStatus() {
+
+    const nomor =
+    document.getElementById("nomorCek").value.trim();
+
+    const data = ambilData();
+
+    const hasil = data.find(item =>
+        item.nomor === nomor
+    );
+
+    const tempat =
+    document.getElementById("hasilCek");
+
+    tempat.innerHTML = "";
+
+    if (!hasil) {
+        tempat.textContent =
+        "Data pengajuan tidak ditemukan.";
+        return;
+    }
+
+    const judul = document.createElement("h3");
+    judul.textContent = "Informasi Pengajuan";
+
+    tempat.appendChild(judul);
+
+    const daftar = [
+
+        ["Nomor Registrasi", hasil.nomor],
+
+        ["Nama", hasil.nama],
+
+        ["Jenis Surat", hasil.jenisSurat],
+
+        ["Tanggal Pengajuan", tanggalIndonesia(hasil.tanggal)],
+
+        ["Status", hasil.status]
+
+    ];
+
+    daftar.forEach(item => {
+
+        const p = document.createElement("p");
+
+        p.style.margin = "10px 0";
+
+        p.textContent = item[0] + ": " + item[1];
+
+        tempat.appendChild(p);
+
+    });
+
+    const tombol = document.createElement("button");
+
+    tombol.className = "btn";
+
+    tombol.textContent = "Unduh Bukti Pengajuan";
+
+    tombol.onclick = () => buatPDF(hasil, false);
+
+    tempat.appendChild(tombol);
+
+    if (hasil.status === "Disetujui") {
+
+        const tombolResmi =
+        document.createElement("button");
+
+        tombolResmi.className = "btn btn-green";
+
+        tombolResmi.textContent = "Unduh PDF Surat";
+
+        tombolResmi.onclick = () =>
+        buatPDF(hasil, true);
+
+        tempat.appendChild(tombolResmi);
+
+    }
+
+}
+
+// ======================================
+// LOGIN ADMIN
+// ======================================
+
+function loginAdmin() {
+
+    const pin = prompt("Masukkan PIN Admin:");
+
+    if (pin === "12345") {
+
+        adminAktif = true;
+
+        alert("Login berhasil!");
+
+        tampilkanHalaman("admin");
+
+    } else if (pin !== null) {
+
+        alert("PIN salah!");
+
+    }
+
+}
+
+// ======================================
+// LOGOUT ADMIN
+// ======================================
+
+function logoutAdmin() {
+
+    adminAktif = false;
+
+    tampilkanHalaman("beranda");
+
+    alert("Anda telah logout.");
+
+}
+
+// ======================================
+// MENAMPILKAN DATA ADMIN
+// ======================================
+
+function tampilkanDataAdmin() {
+
+    if (!adminAktif) return;
+
+    const data = ambilData();
+
+    const pencarian =
+    document.getElementById("cariAdmin")
+    .value.toLowerCase();
+
+    const hasil = data.filter(item =>
+
+        item.nama.toLowerCase().includes(pencarian) ||
+
+        item.nomor.toLowerCase().includes(pencarian)
+
+    );
+
+    const tempat =
+    document.getElementById("tabelAdmin");
+
+    tempat.innerHTML = "";
+
+    if (hasil.length === 0) {
+
+        tempat.textContent =
+        "Belum ada data pengajuan.";
+
+        return;
+    }
+
+    const tabel = document.createElement("table");
+
+    const thead = document.createElement("thead");
+
+    const barisJudul =
+    document.createElement("tr");
+
+    [
+        "Nomor",
+        "Nama",
+        "Jenis Surat",
+        "Status",
+        "Tindakan"
+    ].forEach(teks => {
+
+        const th = document.createElement("th");
+
+        th.textContent = teks;
+
+        barisJudul.appendChild(th);
+
+    });
+
+    thead.appendChild(barisJudul);
+
+    tabel.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+
+    hasil.forEach(item => {
+
+        const tr = document.createElement("tr");
+
+        [
+            item.nomor,
+            item.nama,
+            item.jenisSurat,
+            item.status
+        ].forEach(teks => {
+
+            const td = document.createElement("td");
+
+            td.textContent = teks;
+
+            tr.appendChild(td);
+
+        });
+
+        const tdAksi =
+        document.createElement("td");
+
+        const pilihan =
+        document.createElement("select");
+
+        [
+            "Menunggu",
+            "Diproses",
+            "Disetujui",
+            "Ditolak"
+        ].forEach(status => {
+
+            const option =
+            document.createElement("option");
+
+            option.value = status;
+
+            option.textContent = status;
+
+            option.selected =
+            status === item.status;
+
+            pilihan.appendChild(option);
+
+        });
+
+        pilihan.addEventListener("change", function() {
+
+            ubahStatus(item.nomor, this.value);
+
+        });
+
+        tdAksi.appendChild(pilihan);
+
+        const tombol =
+        document.createElement("button");
+
+        tombol.className = "btn";
+
+        tombol.textContent = "PDF Bukti";
+
+        tombol.onclick = () =>
+        buatPDF(item, false);
+
+        tdAksi.appendChild(tombol);
+
+        if (item.status === "Disetujui") {
+
+            const tombolSurat =
+            document.createElement("button");
+
+            tombolSurat.className = "btn btn-green";
+
+            tombolSurat.textContent = "PDF Surat";
+
+            tombolSurat.onclick = () =>
+            buatPDF(item, true);
+
+            tdAksi.appendChild(tombolSurat);
+
+        }
+
+        tr.appendChild(tdAksi);
+
+        tbody.appendChild(tr);
+
+    });
+
+    tabel.appendChild(tbody);
+
+    tempat.appendChild(tabel);
+
+}
+
+// ======================================
+// MENGUBAH STATUS PENGAJUAN
+// ======================================
+
+function ubahStatus(nomor, statusBaru) {
+
+    const data = ambilData();
+
+    const index = data.findIndex(item =>
+        item.nomor === nomor
+    );
+
+    if (index === -1) return;
+
+    data[index].status = statusBaru;
+
+    simpanData(data);
+
+    alert("Status pengajuan berhasil diperbarui.");
+
+    tampilkanDataAdmin();
+
+}
+
+</script>
+
+</body>
+</html>
